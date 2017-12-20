@@ -9,14 +9,14 @@ import os
 
 class EsToMongodb:
     def __init__(self):
-        self.es = Elasticsearch([{"host": os.getenv("ES_HOST","localhost"),
+        self.es = Elasticsearch([{"host": os.getenv("ES_HOST","10.10.1.58"),
                                   "port": int(os.getenv("ES_PORT","9204"))}])
         self.db = self.get_db()
         self.user_field = dict()
 
     @staticmethod
     def get_db():
-        client = MongoClient(os.getenv("DB_HOST", "localhost"),
+        client = MongoClient(os.getenv("DB_HOST", "10.10.1.58"),
                              int(os.getenv("DB_PORT", "27016")))
         db = client.test_database
         return db

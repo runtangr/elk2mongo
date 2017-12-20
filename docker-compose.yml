@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+
+  elk_mongo:
+      build: ./
+      command: python sync_mongo.py
