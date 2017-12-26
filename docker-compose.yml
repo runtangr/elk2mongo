@@ -1,7 +1,13 @@
 version: '2'
 
 services:
+  redis:
+      image: redis
+
 
   elk_mongo:
       build: ./
       command: python sync_mongo.py
+      links:
+        - redis
+
