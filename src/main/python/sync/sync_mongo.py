@@ -3,38 +3,30 @@
 from elasticsearch import Elasticsearch
 import datetime
 from config import SELECT_BODY, DEVICE, USER_TABLE_NAME, USER_TABLE_FIELD
-from pymongo import MongoClient
 import os
-import redis
+from core.core import r
+import json
+import time
+
+import sys
+sys.path.insert(0, '..')
+
+from models.b_user_48971 import BUser48971
 
 
 class EsToMongodb:
     def __init__(self):
         self.es = Elasticsearch([{"host": os.getenv("ES_HOST", "10.10.1.58"),
                                   "port": int(os.getenv("ES_PORT", "9204"))}])
-        self.db = self.get_db()
-        self.redis = self.get_redis()
+
         self.user_field = dict()
 
     @staticmethod
-    def get_db():
-        client = MongoClient(os.getenv("DB_HOST", "10.10.1.58"),
-                             int(os.getenv("DB_PORT", "27016")))
-        db = client.test_database
-        return db
-
-    @staticmethod
-    def get_redis():
-        pool = redis.ConnectionPool(host='redis', port=6379,
-                                    decode_responses=True)
-        r = redis.Redis(connection_pool=pool)
-        return r
-
-    @staticmethod
     def get_time():
-        now_stamp = int(datetime.datetime.now().timestamp() * 1000)
-        yest_stamp = int((datetime.datetime.now() -
-                          datetime.timedelta(days=1)).timestamp() * 1000)
+        today = datetime.date.today()
+        yes_day = datetime.date.today() - datetime.timedelta(days=1)
+        now_stamp = int(time.mktime(today.timetuple()) * 1000)
+        yest_stamp = int(time.mktime(yes_day.timetuple()) * 1000)
         return now_stamp, yest_stamp
 
     def get_user_data(self, yest_stamp, now_stamp):
@@ -49,44 +41,27 @@ class EsToMongodb:
     @staticmethod
     def build_user_data(datas):
         for hits in datas['hits']['hits']:
-
+            if 'data' not in hits['_source']['myroot']:
+                continue
             for data in hits['_source']['myroot']['data']:
-                if '$cr' and '$cuid' not in data['pr']:
-                    break
-                else:
+                if '$cr' in data['pr'] and '$cuid' in data['pr']:
+
                     yield (hits['_source']['@timestamp'],
-                           hits['_source']['myroot']['sdk'],
+                           hits['_source']['myroot']['pl'],
                            hits['_source']['myroot']['ut'],
                            data['pr']['$cr'], data['pr']['$cuid'])
-
-    def write_mongo(self):
-        result = self.db[USER_TABLE_NAME].insert_one(self.user_field)
-        return result
-
-    def get_next_sequence(self, document_name, field_name):
-
-        ret = self.db[document_name].find_and_modify({},
-                                                     {'$inc': {field_name: 1}},
-                                                     upsert=True, new=True)
-        print(ret)
-        return ret[field_name]
 
     def write_data(self, search_user_data):
         for (update_time, platform_type,
              create_time, device_id,
              user_id) in self.build_user_data(search_user_data):
 
-            # save data to redis
-            self.redis.set(user_id, create_time)
-            # print(self.redis.get(user_id))
-
-            data = self.db[USER_TABLE_NAME].find_one({USER_TABLE_FIELD[1]: int(user_id)})
-            if data:
-                continue
-
             self.build_data(platform_type, create_time, device_id, user_id)
 
-            self.write_mongo()
+            BUser48971.add(self.user_field)
+            # update redis user endtime
+            BUser48971.set_endtime_redis(self.user_field)
+
         else:
 
             update_time = search_user_data['hits']['hits'][-1]['_source']['@timestamp']
@@ -98,27 +73,23 @@ class EsToMongodb:
                                                   "%Y-%m-%d %H:%M:%S")
                        - datetime.timedelta(hours=8))
 
-        sima_id = self.get_next_sequence(document_name='autoid',
-                                         field_name=USER_TABLE_FIELD[2])
-        self.user_field[USER_TABLE_FIELD[0]] = device_id
+        # sima_id = self.get_next_sequence(document_name='autoid',
+        #                                  field_name=USER_TABLE_FIELD[2])
+        self.user_field[USER_TABLE_FIELD[0]] = int(device_id)
         self.user_field[USER_TABLE_FIELD[1]] = int(user_id)
-        self.user_field[USER_TABLE_FIELD[2]] = sima_id
 
         self.user_field[USER_TABLE_FIELD[3]] = create_time
         self.user_field[USER_TABLE_FIELD[4]] = create_time
         self.user_field[USER_TABLE_FIELD[5]] = DEVICE[platform_type]
-        self.user_field[USER_TABLE_FIELD[6]] = sima_id
 
-    def redis_update(self):
-        for user_id in iter(self.db[USER_TABLE_NAME].distinct(USER_TABLE_FIELD[1])):
-            end_time_str = self.redis.get(user_id)
-            if end_time_str:
-                end_time = (datetime.datetime.strptime(end_time_str,
-                                                       '%Y-%m-%d %H:%M:%S') -
-                            datetime.timedelta(hours=8))
-                self.db[USER_TABLE_NAME].update_one(
-                    {USER_TABLE_FIELD[1]: user_id},
-                    {'$set': {USER_TABLE_FIELD[4]: end_time}})
+    def endtime_update(self):
+        for user_id in iter(BUser48971.objects.distinct('user_id')):
+            user_obj = r.get(user_id)
+            user_dict = json.loads(user_obj)
+
+            end_time = (datetime.datetime.utcfromtimestamp(user_dict['end_date']['$date']/1000))
+
+            BUser48971.update_endtime(user_id, end_time)
 
     def deal_data(self, yest_stamp, now_stamp):
         while 1:
@@ -133,7 +104,7 @@ class EsToMongodb:
                 yest_stamp = int(time_array.timestamp() * 1000)
             else:
                 # redis update data.
-                self.redis_update()
+                self.endtime_update()
                 break
 
 if __name__ == "__main__":
