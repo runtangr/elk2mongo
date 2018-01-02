@@ -6,8 +6,8 @@ DEVICE = {
 USER_TABLE_NAME = 'b_user_48971'
 
 USER_TABLE_FIELD = ('device_id', 'user_id',
-                    'sima_id', 'begin_date',
-                    'end_date', 'platform')
+                    'sima_id', 'first_visit_time',
+                    'last_visit_time', 'platform', 'update_time')
 
 SELECT_BODY = {
                 "query": {

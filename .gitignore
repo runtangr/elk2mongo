@@ -45,4 +45,4 @@ livestatus.log
 venv
 .idea/
 target/
-src/main/python/sync/user.json
+src/main/python/sync/user_json/

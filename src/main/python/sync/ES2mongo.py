@@ -4,7 +4,7 @@ from elasticsearch import Elasticsearch
 import datetime
 from config import SELECT_BODY, DEVICE, USER_TABLE_NAME, USER_TABLE_FIELD
 import os
-from core.core import r
+from core.core import r_user
 import json
 import time
 
@@ -21,10 +21,11 @@ class EsToMongodb:
 
         self.user_field = dict()
 
+
     @staticmethod
     def get_time():
         today = datetime.date.today()
-        yes_day = datetime.date.today() - datetime.timedelta(days=1)
+        yes_day = datetime.date.today() - datetime.timedelta(days=6)
         now_stamp = int(time.mktime(today.timetuple()) * 1000)
         yest_stamp = int(time.mktime(yes_day.timetuple()) * 1000)
         return now_stamp, yest_stamp
@@ -84,10 +85,11 @@ class EsToMongodb:
 
     def endtime_update(self):
         for user_id in iter(BUser48971.objects.distinct('user_id')):
-            user_obj = r.get(user_id)
+            user_obj = r_user.get(user_id)
             user_dict = json.loads(user_obj)
 
-            end_time = (datetime.datetime.utcfromtimestamp(user_dict['end_date']['$date']/1000))
+            end_time = (datetime.datetime.utcfromtimestamp(
+                user_dict[USER_TABLE_FIELD[4]]['$date']/1000))
 
             BUser48971.update_endtime(user_id, end_time)
 
