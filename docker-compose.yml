@@ -12,8 +12,8 @@ services:
   elk_mongo:
       build: ./
       command: sh -c "python ES2mongo.py && python mongo2json.py"
-      volumes:
-        - /tmp/sync:/app/src/main/python/sync
+      #volumes:
+        #- /tmp/sync:/app/src/main/python/sync
       links:
         - redis
         - mongodb
