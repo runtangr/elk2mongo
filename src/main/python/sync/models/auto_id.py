@@ -2,7 +2,7 @@
 from mongoengine import *
 import sys
 sys.path.insert(0, '..')
-from core.core import r_sima
+from core.init_database import r_sima
 
 
 class AutoId(Document):

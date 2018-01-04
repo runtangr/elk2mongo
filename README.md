@@ -9,6 +9,6 @@
       4.存储数据到mongodb(ORM)
 
 # 主要技术
-      elasticsearch
+      elasticsearch(通过docker-compose配置连接外部elk网络)
       mongoengine
       redis

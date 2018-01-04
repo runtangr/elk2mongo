@@ -7,7 +7,7 @@ from .auto_id import AutoId
 import sys
 
 sys.path.insert(0, '..')
-from core.core import r_user
+from core.init_database import r_user
 
 
 class BUser48971(Document):

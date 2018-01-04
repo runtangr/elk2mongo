@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 
-from elasticsearch import Elasticsearch
+
 import datetime
 from config import SELECT_BODY, DEVICE, USER_TABLE_NAME, USER_TABLE_FIELD
 import os
-from core.core import r_user
+from core.init_database import r_user, ES
 import json
 import time
 
@@ -16,11 +16,10 @@ from models.b_user_48971 import BUser48971
 
 class EsToMongodb:
     def __init__(self):
-        self.es = Elasticsearch([{"host": os.getenv("ES_HOST", "10.10.1.58"),
-                                  "port": int(os.getenv("ES_PORT", "9204"))}])
 
+        self.es = ES
+        # elasticsearch
         self.user_field = dict()
-
 
     @staticmethod
     def get_time():
