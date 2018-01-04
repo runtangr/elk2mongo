@@ -20,6 +20,7 @@ class AutoId(Document):
         # update redis and mongodb
         if item:
             item.sima_id += 1
+            r_sima.set("sima_id", item.to_json())
             item.save()
         else:
             # first save and add
