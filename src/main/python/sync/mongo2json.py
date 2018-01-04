@@ -3,6 +3,7 @@ from core.init_database import r_user
 import json
 import datetime
 from config import USER_TABLE_FIELD
+import os
 
 def build_data(user_str):
     user_dict = json.loads(user_str)
@@ -33,6 +34,8 @@ def user2json():
 
 
 def init_file():
+    if os.path.exists('./user_json') is False:
+        os.mkdir('user_json')
     # create or overlay file
     with open('./user_json/b_user_48971.json', 'w') as f:
         pass
