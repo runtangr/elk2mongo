@@ -1,5 +1,5 @@
 from models.b_user_48971 import BUser48971
-from core.core import r_user
+from core.init_database import r_user
 import json
 import datetime
 from config import USER_TABLE_FIELD
@@ -31,6 +31,12 @@ def user2json():
         with open('./user_json/b_user_48971.json', 'a') as f:
             f.writelines(''.join([user_build, '\n']))
 
-if __name__ == "__main__":
 
+def init_file():
+    # create or overlay file
+    with open('./user_json/b_user_48971.json', 'w') as f:
+        pass
+
+if __name__ == "__main__":
+    init_file()
     user2json()
