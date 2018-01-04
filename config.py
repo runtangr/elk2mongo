@@ -1,6 +1,6 @@
 DEVICE = {
   "and": 1,
-  "js": 1
+  "js": 3
 }
 
 USER_TABLE_NAME = 'b_user_48971'
