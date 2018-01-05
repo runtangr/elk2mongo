@@ -33,6 +33,8 @@ def user2json():
 
 
 def init_file():
+    if os.path.exists('pj/sync/user_json') is False:
+        os.mkdir('pj/sync/user_json')
     # create or overlay file
     with open('pj/sync/user_json/b_user_48971.json', 'w') as f:
         pass
