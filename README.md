@@ -25,6 +25,20 @@
          初始化 mongodb, redis, elasticsearch
       程序运行:
          cd ./src/main/python/sync/
-         python ES2mongo.py
+         python ES2mongodb.py && python mongodb2json.py
 
 # 各主要文件作用
+      config.py
+         配置elasticsearch 查询信息，和从elasticsearch 提取用户表结构定义
+
+      src/main/python/sync/core
+         初始化数据库配置
+
+      src/main/python/sync/models
+         mongodb ORM表结构定义，和对应表操作定义
+
+      src/main/python/sync/ES2mongodb.py
+         从elasticsearch 获取和过滤数据到mongodb
+
+      src/main/python/sync/mongodb2json.py
+         从mongodb 获取数据到json文件
