@@ -12,3 +12,19 @@
       elasticsearch(通过docker-compose配置连接外部elk网络)
       mongoengine
       redis
+
+# 生产环境使用
+      sh start.sh
+
+# 测试环境使用
+      安装虚拟环境 virtualenv
+      python 版本 3.+
+      安装需求包 requirements.txt
+      配置数据库:
+         修改 ./src/main/python/sync/core/init_database.py
+         初始化 mongodb, redis, elasticsearch
+      程序运行:
+         cd ./src/main/python/sync/
+         python ES2mongo.py
+
+# 各主要文件作用
