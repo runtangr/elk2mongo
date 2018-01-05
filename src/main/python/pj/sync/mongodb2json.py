@@ -3,6 +3,8 @@ from .core.init_database import r_user
 import json
 import datetime
 from .config import USER_TABLE_FIELD
+import os
+
 
 def build_data(user_str):
     user_dict = json.loads(user_str)
@@ -17,7 +19,6 @@ def build_data(user_str):
         user_dict[USER_TABLE_FIELD[6]]['$date']/1000).strftime('%Y-%m-%d %H:%M:%S')
 
     user_data = json.dumps(user_dict)
-
     return user_data
 
 
