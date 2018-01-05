@@ -12,6 +12,7 @@
       elasticsearch(通过docker-compose配置连接外部elk网络)
       mongoengine
       redis
+      celery
 
 # 生产环境使用
       sh start.sh
@@ -23,8 +24,11 @@
       配置数据库:
          修改 ./src/main/python/sync/core/init_database.py
          初始化 mongodb, redis, elasticsearch
-      程序运行:
-         cd ./src/main/python/sync/
+      celery运行:
+         cd ./src/main/python/
+         celery -A pj worker -B -Q es_mongodb -l info
+      运行:
+         cd ./src/main/python/pj/sync/
          python ES2mongodb.py && python mongodb2json.py
 
 # 各主要文件作用
