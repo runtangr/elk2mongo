@@ -1,8 +1,7 @@
 
 from mongoengine import *
-import sys
-sys.path.insert(0, '..')
-from core.init_database import r_sima
+
+from pj.sync.core.init_database import r_sima
 
 
 class AutoId(Document):

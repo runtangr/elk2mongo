@@ -1,9 +1,8 @@
-from models.b_user_48971 import BUser48971
-from core.init_database import r_user
+from .models.b_user_48971 import BUser48971
+from .core.init_database import r_user
 import json
 import datetime
-from config import USER_TABLE_FIELD
-import os
+from .config import USER_TABLE_FIELD
 
 def build_data(user_str):
     user_dict = json.loads(user_str)
@@ -29,15 +28,13 @@ def user2json():
         user_data = BUser48971.get(user_id)
         user_str = user_data.to_json()
         user_build = build_data(user_str)
-        with open('./user_json/b_user_48971.json', 'a') as f:
+        with open('pj/sync/user_json/b_user_48971.json', 'a') as f:
             f.writelines(''.join([user_build, '\n']))
 
 
 def init_file():
-    if os.path.exists('./user_json') is False:
-        os.mkdir('user_json')
     # create or overlay file
-    with open('./user_json/b_user_48971.json', 'w') as f:
+    with open('pj/sync/user_json/b_user_48971.json', 'w') as f:
         pass
 
 if __name__ == "__main__":

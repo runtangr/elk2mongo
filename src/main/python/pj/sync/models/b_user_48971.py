@@ -2,12 +2,11 @@
 from datetime import datetime
 
 from mongoengine import *
-from config import USER_TABLE_FIELD
-from .auto_id import AutoId
-import sys
 
-sys.path.insert(0, '..')
-from core.init_database import r_user
+from .auto_id import AutoId
+
+from pj.sync.core.init_database import r_user
+from pj.sync.config import USER_TABLE_FIELD
 
 
 class BUser48971(Document):

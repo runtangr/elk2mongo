@@ -2,22 +2,22 @@
 
 
 import datetime
-from config import SELECT_BODY, DEVICE, USER_TABLE_NAME, USER_TABLE_FIELD
+import sys
+
+from .config import SELECT_BODY, DEVICE, USER_TABLE_NAME, USER_TABLE_FIELD
 import os
-from core.init_database import r_user, ES
+from .core.init_database import r_user, es
 import json
 import time
 
-import sys
 sys.path.insert(0, '..')
-
-from models.b_user_48971 import BUser48971
+from .models.b_user_48971 import BUser48971
 
 
 class EsToMongodb:
     def __init__(self):
 
-        self.es = ES
+        self.es = es
         # elasticsearch
         self.user_field = dict()
 
@@ -94,10 +94,10 @@ class EsToMongodb:
 
     def deal_data(self, yest_stamp, now_stamp):
         while 1:
-            user_data = info.get_user_data(yest_stamp, now_stamp)
+            user_data = self.get_user_data(yest_stamp, now_stamp)
             # loop write data.
             if user_data['hits']['hits']:
-                search_update_time = info.write_data(user_data)
+                search_update_time = self.write_data(user_data)
 
                 time_array = (datetime.datetime.strptime(search_update_time,
                                                          "%Y-%m-%dT%H:%M:%S.%fZ")
