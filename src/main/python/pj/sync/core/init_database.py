@@ -3,12 +3,12 @@ from mongoengine import connect
 from elasticsearch import Elasticsearch
 
 # init mongodb, redis, elasticsearch
-connect(host='localhost', db='test_database')
+connect(host='mongodb', db='test_database')
 
-es = Elasticsearch([{'host': '10.3.131.170', 'port': 9204}])
+es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
 
-pool_user = redis.ConnectionPool(host='localhost', port=6379, db=0)
+pool_user = redis.ConnectionPool(host='redis', port=6379, db=0)
 r_user = redis.StrictRedis(connection_pool=pool_user)
 
-pool_sima = redis.ConnectionPool(host='localhost', port=6379, db=1)
+pool_sima = redis.ConnectionPool(host='redis', port=6379, db=1)
 r_sima = redis.StrictRedis(connection_pool=pool_sima)
