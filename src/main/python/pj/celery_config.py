@@ -11,8 +11,7 @@ CELERY_ROUTES = {
 CELERYBEAT_SCHEDULE = {
     'es_mongodb': {
         'task': 'pj.tasks.es2mongodb',
-        'schedule': timedelta(seconds=30)
-
+        'schedule': crontab(hour=8, minute=30)
     }
 }
 

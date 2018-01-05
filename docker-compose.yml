@@ -12,8 +12,8 @@ services:
   elk_mongo:
       build: ./
       command: sh -c "celery -A pj worker -B -Q es_mongodb -l info"
-      #volumes:
-        #- /tmp/sync:/app/src/main/python/
+      volumes:
+        - /app/mount/user_json:/app/src/main/python/sync/user_json
       links:
         - redis
         - mongodb
