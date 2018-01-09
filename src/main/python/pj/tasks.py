@@ -14,6 +14,9 @@ def es2mongodb():
     now_time_stamp, yest_time_stamp = info.get_time()
     info.deal_data(yest_time_stamp, now_time_stamp)
 
+
+@app.task
+def mongodb2json():
     # mongodb2json
     init_file()
     user2json()
