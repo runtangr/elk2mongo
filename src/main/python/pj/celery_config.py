@@ -15,14 +15,13 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERYBEAT_SCHEDULE = {
     'es_mongodb': {
         'task': 'pj.tasks.es2mongodb',
-        'schedule': crontab(hour=10, minute=35)
+        'schedule': crontab(hour=3, minute=10)
     },
     'mongodb_json': {
         'task': 'pj.tasks.mongodb2json',
-        'schedule': crontab(hour=10, minute=35)
+        'schedule': crontab(hour=3, minute=10)
     }
 }
-
 
 
 BROKER_URL = 'redis://redis:6379/10'
