@@ -15,11 +15,11 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERYBEAT_SCHEDULE = {
     'es_mongodb': {
         'task': 'pj.tasks.es2mongodb',
-        'schedule': crontab(hour=3, minute=10)
+        'schedule': crontab(hour=1, minute=1)
     },
     'mongodb_json': {
         'task': 'pj.tasks.mongodb2json',
-        'schedule': crontab(hour=10, minute=28)
+        'schedule': crontab(hour=1, minute=5)
     }
 }
 
