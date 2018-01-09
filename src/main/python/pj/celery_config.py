@@ -8,7 +8,7 @@ CELERY_ROUTES = {
     'pj.tasks.es2mongodb': {'queue': 'es_mongodb', 'routing_key': 'es_mongodb'},
     'pj.tasks.mongodb2json': {'queue': 'mongodb_json', 'routing_key': 'mongodb_json'}
 }
-
+# i don't know why i use this configuration, timezone is utc
 CELERY_ENABLE_UTC = False
 CELERY_TIMEZONE = 'Asia/Shanghai'
 
@@ -19,7 +19,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'mongodb_json': {
         'task': 'pj.tasks.mongodb2json',
-        'schedule': crontab(hour=3, minute=10)
+        'schedule': crontab(hour=10, minute=28)
     }
 }
 
