@@ -24,10 +24,10 @@
       配置数据库:
          修改 ./src/main/python/sync/core/init_database.py
          初始化 mongodb, redis, elasticsearch
-      celery运行:
+      celery运行方式:
          cd ./src/main/python/
-         celery -A pj worker -B -Q es_mongodb -l info
-      运行:
+         celery -A pj worker -B -Q es_mongodb,mongodb_json -l info
+      一般运行方式:
          cd ./src/main/python/pj/sync/
          python ES2mongodb.py && python mongodb2json.py
 

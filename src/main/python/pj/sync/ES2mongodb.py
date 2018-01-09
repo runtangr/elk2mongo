@@ -31,9 +31,9 @@ class EsToMongodb:
 
     def get_user_data(self, yest_stamp, now_stamp):
 
-        SELECT_BODY["post_filter"]["range"]["@timestamp"]["gt"] = yest_stamp
-        SELECT_BODY["post_filter"]["range"]["@timestamp"]["lte"] = now_stamp
-        datas = self.es.search(body=SELECT_BODY)
+        SELECT_USER_BODY["post_filter"]["range"]["@timestamp"]["gt"] = yest_stamp
+        SELECT_USER_BODY["post_filter"]["range"]["@timestamp"]["lte"] = now_stamp
+        datas = self.es.search(body=SELECT_USER_BODY)
 
         print(datas)
         return datas
