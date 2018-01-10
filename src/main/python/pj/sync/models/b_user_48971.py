@@ -6,7 +6,7 @@ from mongoengine import *
 from .auto_id import AutoId
 
 from pj.sync.core.init_database import r_user
-from pj.sync.config import USER_TABLE_FIELD
+from pj.sync.config import USER_TABLE_FIELD, USER_TABLE_NAME
 
 
 class BUser48971(Document):
@@ -20,7 +20,7 @@ class BUser48971(Document):
     update_time = DateTimeField(default=datetime.utcnow())
 
     meta = {
-        "collection": "b_user_48971",
+        "collection": USER_TABLE_NAME,
         'indexes': ['user_id']
     }
 
