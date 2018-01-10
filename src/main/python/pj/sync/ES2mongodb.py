@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 
-
 import datetime
 import sys
-
-from .config import SELECT_USER_BODY, DEVICE, USER_TABLE_NAME, USER_TABLE_FIELD
-import os
+from .config import SELECT_USER_BODY, DEVICE, USER_TABLE_FIELD
 from .core.init_database import r_user, es
 import json
 import time
@@ -24,7 +21,7 @@ class EsToMongodb:
     @staticmethod
     def get_time():
         today = datetime.date.today()
-        yes_day = datetime.date.today() - datetime.timedelta(days=6)
+        yes_day = datetime.date.today() - datetime.timedelta(days=1)
         now_stamp = int(time.mktime(today.timetuple()) * 1000)
         yest_stamp = int(time.mktime(yes_day.timetuple()) * 1000)
         return now_stamp, yest_stamp

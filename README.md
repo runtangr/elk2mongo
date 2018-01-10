@@ -28,12 +28,12 @@
          cd ./src/main/python/
          celery -A pj worker -B -Q es_mongodb,mongodb_json -l info
       一般运行方式:
-         cd ./src/main/python/pj/sync/
-         python ES2mongodb.py && python mongodb2json.py
+         cd ./src/main/python/
+         python pj/sync/ES2mongodb.py && python pj/sync/mongodb2json.py
 
 # 各主要文件作用
-      config.py
-         配置elasticsearch 查询信息，和从elasticsearch 提取用户表结构定义
+      src/main/python/sync/config.py
+         配置elasticsearch、 mongodb、 csv相关信息
 
       src/main/python/sync/core
          初始化数据库配置
@@ -46,3 +46,9 @@
 
       src/main/python/sync/mongodb2json.py
          从mongodb 获取数据到json文件
+
+      src/main/python/sync/ES2csv.py
+         从elasticsearch 获取和过滤数据,存储本地csv文件
+
+      src/main/python/sync/csv2ftp.py
+         本地csv文件上传到ftp服务器
