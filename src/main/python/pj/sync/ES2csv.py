@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 
 import datetime
-from config import SELECT_SESSION_BODY, CSV_FIELD, DEVICE, CSV_DIR, CSV_FILE_NAME
+from .config import SELECT_SESSION_BODY, CSV_FIELD, DEVICE, CSV_DIR, CSV_FILE_NAME
 import os
 import json
-from core.init_database import es
+from .core.init_database import es
 import time
-from utils import get_yest_str
+from .utils import get_yest_str
 import csv
 
 
