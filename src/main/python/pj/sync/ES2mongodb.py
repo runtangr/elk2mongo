@@ -43,6 +43,11 @@ class EsToMongodb:
             for data in hits['_source']['myroot']['data']:
                 if '$cr' in data['pr'] and '$cuid' in data['pr']:
 
+                    try:
+                        uid = int(data['pr']['$cuid'])
+                    except ValueError:
+                        continue
+
                     yield (hits['_source']['@timestamp'],
                            hits['_source']['myroot']['pl'],
                            hits['_source']['myroot']['ut'],
