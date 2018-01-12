@@ -48,7 +48,7 @@ class EsToCSV:
             if 'data' not in hits['_source']['myroot']:
                 continue
             for data in hits['_source']['myroot']['data']:
-                if '_功能编码' in data['pr']:
+                if '_功能编码' in data['pr'] and '$cuid' in data['pr']:
                     self.csv_field[CSV_FIELD[0]] = int(data['pr']['$cuid'])
                     self.csv_field[CSV_FIELD[1]] = hits['_source']['myroot']['ut']
                     self.csv_field[CSV_FIELD[2]] = data['pr']['$eid']
