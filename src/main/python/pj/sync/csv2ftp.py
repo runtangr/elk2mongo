@@ -24,7 +24,7 @@ def ftp_connect(host, username, password):
 def upload_file(ftp_fd, remotepath, localpath):
     buf_size = 1024
     fp = open(localpath, 'rb')
-    ftp.storbinary('STOR ' + remotepath, fp, buf_size)
+    ftp_fd.storbinary('STOR ' + remotepath, fp, buf_size)
     ftp_fd.set_debuglevel(0)
     fp.close()
 
