@@ -16,6 +16,12 @@ CSV_FIELD = ('Userid', 'fwDatetime',
 CSV_DIR = 'pj/sync/session_csv'
 CSV_FILE_NAME = 'UserSession_{}.csv'
 
+# ftp
+FTP_DIR = '/app/ftp/zhugeio'
+FTP_IP = '10.3.131.138'
+FTP_USER = 'zhugeio'
+FTP_PASSWORD = '123456'
+
 # elasticsearch
 DEVICE = {
   "and": 1,
@@ -75,7 +81,8 @@ SELECT_SESSION_BODY = {
                           ],
                           "_source": ["myroot.data.pr.$cuid", "myroot.ut",
                                       "myroot.data.pr.$eid", "myroot.pl",
-                                      "myroot.data.pr._功能编码", "@timestamp"],
+                                      "myroot.data.pr._功能编码", "@timestamp",
+                                      "myroot.ip"],
                           "size": 5
                         }
 

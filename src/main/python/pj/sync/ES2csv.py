@@ -52,7 +52,10 @@ class EsToCSV:
                     self.csv_field[CSV_FIELD[0]] = int(data['pr']['$cuid'])
                     self.csv_field[CSV_FIELD[1]] = hits['_source']['myroot']['ut']
                     self.csv_field[CSV_FIELD[2]] = data['pr']['$eid']
-                    self.csv_field[CSV_FIELD[3]] = ''
+                    if 'ip' in hits['_source']['myroot']:
+                        self.csv_field[CSV_FIELD[3]] = hits['_source']['myroot']['ip']
+                    else:
+                        self.csv_field[CSV_FIELD[3]] = '0.0.0.0'
                     self.csv_field[CSV_FIELD[4]] = DEVICE[hits['_source']['myroot']['pl']]
                     self.csv_field[CSV_FIELD[5]] = int(data['pr']['_功能编码'])
 
