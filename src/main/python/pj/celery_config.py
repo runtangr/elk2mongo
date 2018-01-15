@@ -22,7 +22,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'mongodb_json': {
         'task': 'pj.tasks.mongodb2json',
-        'schedule': crontab(hour=1, minute=15)
+        'schedule': crontab(hour=7, minute=15)
     },
     'es_csv': {
         'task': 'pj.tasks.es2csv',
