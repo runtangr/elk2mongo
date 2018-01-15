@@ -18,19 +18,19 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERYBEAT_SCHEDULE = {
     'es_mongodb': {
         'task': 'pj.tasks.es2mongodb',
-        'schedule': crontab(hour=5, minute=30)
+        'schedule': crontab(hour=3, minute=40)
     },
     'mongodb_json': {
         'task': 'pj.tasks.mongodb2json',
-        'schedule': crontab(hour=5, minute=35)
+        'schedule': crontab(hour=3, minute=45)
     },
     'es_csv': {
         'task': 'pj.tasks.es2csv',
-        'schedule': crontab(hour=5, minute=30)
+        'schedule': crontab(hour=3, minute=40)
     },
     'csv_ftp': {
         'task': 'pj.tasks.csv2ftp',
-        'schedule': crontab(hour=5, minute=35)
+        'schedule': crontab(hour=3, minute=45)
     }
 }
 
