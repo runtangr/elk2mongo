@@ -32,7 +32,7 @@ class EsToMongodb:
         SELECT_USER_BODY["post_filter"]["range"]["@timestamp"]["lte"] = now_stamp
         datas = self.es.search(body=SELECT_USER_BODY)
 
-        print(datas)
+        # print(datas)
         return datas
 
     @staticmethod

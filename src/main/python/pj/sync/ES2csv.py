@@ -40,7 +40,7 @@ class EsToCSV:
         SELECT_SESSION_BODY["post_filter"]["range"]["@timestamp"]["lte"] = now_stamp
         datas = self.es.search(body=SELECT_SESSION_BODY)
 
-        print(datas)
+        # print(datas)
         return datas
 
     def parse_session_data(self, datas):
