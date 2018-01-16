@@ -25,13 +25,14 @@ FTP_PASSWORD = '123456'
 # elasticsearch
 DEVICE = {
   "and": 1,
+  "ios": 2,
   "js": 3
 }
 
 SELECT_USER_BODY = {
                 "query": {
                   "terms": {
-                     "myroot.pl": ["js", "and"]
+                     "myroot.pl": ["js", "and", "ios"]
                   }
                 },
                 "post_filter": {
@@ -60,7 +61,8 @@ SELECT_SESSION_BODY = {
                             "terms": {
                               "myroot.pl": [
                                 "js",
-                                "and"
+                                "and",
+                                "ios"
                               ]
                             }
                           },
