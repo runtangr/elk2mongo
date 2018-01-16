@@ -45,6 +45,7 @@ class EsToMongodb:
 
                     try:
                         uid = int(data['pr']['$cuid'])
+                        device_id = int(data['pr']['$cr'])
                     except ValueError:
                         continue
 
