@@ -10,8 +10,8 @@
 
 # 主要技术
       elasticsearch(通过docker-compose配置连接外部elk网络)
-      mongoengine
-      redis
+      mongodb(orm)
+      redis(缓存)
       celery
 
 # 生产环境使用
