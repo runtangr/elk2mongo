@@ -1,6 +1,6 @@
 
 # 主要需求
-      从elk获取数据，过滤需求数据存储mongodb
+      从elk获取数据，过滤需求数据存储mongodb,csv文件,csv文件上传ftp
 
 # 主要实现目标
       1.获取elasticsearch指定时间段数据，如一天 循环增量获取
