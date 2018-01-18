@@ -57,8 +57,10 @@ class EsToCSV:
                     else:
                         self.csv_field[CSV_FIELD[3]] = '0.0.0.0'
                     self.csv_field[CSV_FIELD[4]] = DEVICE[hits['_source']['myroot']['pl']]
-                    self.csv_field[CSV_FIELD[5]] = int(data['pr']['_功能编码'])
-
+                    try:
+                        self.csv_field[CSV_FIELD[5]] = int(data['pr']['_功能编码'])
+                    except ValueError:
+                        continue
                     yield self.csv_field
 
     def write_session_data(self):
