@@ -59,6 +59,7 @@ class EsToCSV:
                     self.csv_field[CSV_FIELD[4]] = DEVICE[hits['_source']['myroot']['pl']]
                     try:
                         self.csv_field[CSV_FIELD[5]] = int(data['pr']['_columnCode'])
+                        self.csv_field[CSV_FIELD[5]] = data['pr']['_columnCode']
                     except ValueError:
                         continue
                     yield self.csv_field
