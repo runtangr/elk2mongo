@@ -4,10 +4,10 @@ import time
 import tarfile
 import os
 import datetime
-from .config import (FTP_DIR, CSV_FILE_NAME,
+from config import (FTP_DIR, CSV_FILE_NAME,
                      FTP_IP, FTP_USER,
                      FTP_PASSWORD, CSV_DIR)
-from .utils import get_yest_str
+from utils import get_yest_str
 
 from ftplib import FTP
 

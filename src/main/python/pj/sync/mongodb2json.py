@@ -1,8 +1,8 @@
-from .models.b_user_48971 import BUser48971
-from .core.init_database import r_user
+from models.b_user_48971 import BUser48971
+from core.init_database import r_user
 import json
 import datetime
-from .config import USER_TABLE_FIELD, USER_TABLE_DIR, USER_FILE_NAME
+from config import USER_TABLE_FIELD, USER_TABLE_DIR, USER_FILE_NAME
 import os
 
 

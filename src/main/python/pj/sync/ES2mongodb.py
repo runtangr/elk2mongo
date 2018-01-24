@@ -2,8 +2,8 @@
 
 import datetime
 import sys
-from .config import SELECT_USER_BODY, DEVICE, USER_TABLE_FIELD
-from .core.init_database import r_user, es
+from config import SELECT_USER_BODY, DEVICE, USER_TABLE_FIELD
+from core.init_database import r_user, es
 import json
 import time
 
