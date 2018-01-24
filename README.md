@@ -29,6 +29,7 @@
          celery -A pj worker -B -Q es_mongodb,mongodb_json -l info
       一般运行方式:
          cd ./src/main/python/
+         这里找不到config 模块需要去掉 from .config 的. 其他类似 目前未找到好的处理方式
          python pj/sync/ES2mongodb.py && python pj/sync/mongodb2json.py
 
 # 各主要文件作用
