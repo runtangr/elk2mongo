@@ -30,7 +30,7 @@ class EsToCSV:
     @staticmethod
     def get_time():
         today = datetime.date.today()
-        yes_day = datetime.date.today() - datetime.timedelta(days=14)
+        yes_day = datetime.date.today() - datetime.timedelta(days=1)
         now_stamp = int(time.mktime(today.timetuple()) * 1000)
         yest_stamp = int(time.mktime(yes_day.timetuple()) * 1000)
         return now_stamp, yest_stamp
